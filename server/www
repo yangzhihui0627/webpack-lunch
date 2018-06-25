@@ -1,0 +1,32 @@
+const Koa = require('koa');
+const app = new Koa();
+const router = require('./routes/routers');
+var http = require('http');
+var path = require('path');
+const views = require('koa-views');
+const static = require('./routes/static');
+
+process.env.NODE_ENV = {
+    dev: "development",
+    test: "testing",
+    prod: "production"
+}["prod"];
+
+const path_html = path.join(__dirname,'../../dist/');
+app.use(views(path_html,{extension:'html'}));
+var port = 3000;
+/**
+ * Create HTTP server.
+ */
+// var server = http.createServer(app);
+http.createServer(app.callback()).listen(3000);
+// app.use(async ctx => {
+//     ctx.body = 'Hello World';
+//   });
+app.use(static);
+app.use(router.routes());
+// app.on('error', (err, ctx) => {
+//     log.error('server error', err, ctx)
+//   });
+// server.on('error', onError);
+// server.on('listening', onListening);
