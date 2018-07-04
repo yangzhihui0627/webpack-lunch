@@ -5,7 +5,7 @@ var path = require('path');
 var fs = require('fs');
 const {pool,sqlOpration} = db;
 
-router.get('/', async(ctx,next){
+router.get('/', async(ctx,next) => {
 	console.log('ctx-url:'+ctx.url);
 	var page = fs.readFileSync(path.join(__dirname,'../../dist/index.html'),'utf-8');
 	return ctx.body = page;
