@@ -9,7 +9,7 @@ module.exports = [
 		},
 		output:{
 			path:path.resolve(__dirname,'dist'),
-			publicPath:'http://192.168.3.79:3000/dist/',
+			publicPath:'http://localhost:3000/dist/',
 			filename:'js/[name]-[chunkhash].js'
 		},
 		module:{
