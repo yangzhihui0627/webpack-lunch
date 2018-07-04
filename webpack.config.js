@@ -25,6 +25,16 @@ module.exports = [
 			                modules: true
 			              }
 			            }]
+				},
+				{
+					test:/\.js$/,
+					exclude: /(node_modules|dist)/,
+					use:[{
+							loader: 'babel-loader',
+							options: {
+					          presets: ['@babel/preset-env']
+					        }
+						}]
 				}
 			]
 		},
