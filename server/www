@@ -5,6 +5,7 @@ var http = require('http');
 var path = require('path');
 const views = require('koa-views');
 const static = require('./routes/static');
+const socketServer = require('./middleware/socketServer');
 
 process.env.NODE_ENV = {
     dev: "development",
@@ -19,12 +20,25 @@ var port = 3000;
  * Create HTTP server.
  */
 // var server = http.createServer(app);
-http.createServer(app.callback()).listen(3000);
+var server = http.createServer(app.callback()).listen(3000);
+
 // app.use(async ctx => {
 //     ctx.body = 'Hello World';
 //   });
 app.use(static);
 app.use(router.routes());
+//socket.io必须放在router配置后
+var io = require('socket.io')(server);
+io.on('connection', function(socket){
+	socketServer.socketServer(socket);
+	// socket.on("selected",function(data){
+	// 	// we tell the client to execute 'new message'
+	// 	console.log("检测到消息",data)
+	//     socket.broadcast.emit('selected', {
+	//       message: data + "yzh服务器发布"
+	//     });
+	// })
+});
 // app.on('error', (err, ctx) => {
 //     log.error('server error', err, ctx)
 //   });
