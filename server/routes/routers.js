@@ -76,4 +76,7 @@ router.get('/reset', async(ctx, next) => {
 	let output = await sqlOpration({"type":"update"});
     return ctx.body = {"status":"success"};
 })
+router.get('/socket.io',async(ctx,next) =>{
+	return next();
+})
 module.exports = router;
